@@ -80,33 +80,31 @@ if ! aws iam get-role --role-name "$SOAR_ROLE" 2>/dev/null; then
 fi
 
 # Package and deploy Lambda
-cd phase4/soar
-zip -q -r /tmp/soar_lambda.zip lambda_function.py
-cd ../..
+python -m zipfile -c phase4/soar/soar_lambda.zip phase4/soar/lambda_function.py
 
-if ! aws lambda get-function --function-name fintech-runtime-soar --region "$REGION" >/dev/null 2>&1; then
+if ! aws lambda get-function --function-name phani-runtime-soar --region "$REGION" >/dev/null 2>&1; then
   aws lambda create-function \
-    --function-name fintech-runtime-soar \
+    --function-name phani-runtime-soar \
     --runtime python3.12 \
     --handler lambda_function.handler \
     --role "arn:aws:iam::${ACCOUNT_ID}:role/${SOAR_ROLE}" \
-    --zip-file fileb:///tmp/soar_lambda.zip \
+    --zip-file fileb://phase4/soar/soar_lambda.zip \
     --timeout 300 \
     --environment "Variables={FORENSIC_BUCKET=$FORENSIC_BUCKET,QUARANTINE_SG_ID=$QUARANTINE_SG_ID}" \
-    --tags Project=devsecops-fintech-lab \
+    --tags Owner=phani,Candidate=phani,Project=devsecops-fintech-lab \
     --region "$REGION"
-  echo "    Lambda fintech-runtime-soar created."
+  echo "    Lambda phani-runtime-soar created."
 else
   aws lambda update-function-code \
-    --function-name fintech-runtime-soar \
-    --zip-file fileb:///tmp/soar_lambda.zip \
+    --function-name phani-runtime-soar \
+    --zip-file fileb://phase4/soar/soar_lambda.zip \
     --region "$REGION" >/dev/null
   aws lambda update-function-configuration \
-    --function-name fintech-runtime-soar \
+    --function-name phani-runtime-soar \
     --timeout 300 \
     --environment "Variables={FORENSIC_BUCKET=$FORENSIC_BUCKET,QUARANTINE_SG_ID=$QUARANTINE_SG_ID}" \
     --region "$REGION" >/dev/null
-  echo "    Lambda fintech-runtime-soar updated."
+  echo "    Lambda phani-runtime-soar updated."
 fi
 
 echo "[5/5] Creating EventBridge Rule & Attaching SOAR Target..."

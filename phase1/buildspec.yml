@@ -8,18 +8,15 @@ phases:
       - python3 -m pip install checkov detect-secrets
   pre_build:
     commands:
-      - echo "=========================================================="
-      - echo " PHASE 1: SHIFT-LEFT IaC & SECRET SECURITY SCAN"
-      - echo "=========================================================="
-      - echo "--- [1/2] CHECKOV: Terraform Static Security Analysis ---"
+      - echo "=== Starting Phase 1 Shift-Left Security Scans ==="
       - CHECKOV_EXIT=0
       - checkov -d terraform/vulnerable --framework terraform --output cli || CHECKOV_EXIT=$?
-      - echo "--- [2/2] DETECT-SECRETS: Secret Governance Scan ---"
-      - detect-secrets scan terraform/vulnerable/ --all-files > /tmp/detect-secrets.json
+      - echo "=== Running detect-secrets Scan ==="
+      - detect-secrets scan terraform/vulnerable/ --all-files > detect-secrets-report.json
       - |
         python3 - <<'PY'
         import json, sys
-        with open('/tmp/detect-secrets.json', 'r', encoding='utf-8') as f:
+        with open('detect-secrets-report.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
         findings = data.get('results', {})
         count = sum(len(v) for v in findings.values())
@@ -52,4 +49,4 @@ phases:
 
 artifacts:
   files:
-    - /tmp/detect-secrets.json
+    - detect-secrets-report.json
