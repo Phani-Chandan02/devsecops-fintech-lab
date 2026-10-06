@@ -31,6 +31,7 @@ for attempt in range(max_attempts):
         status = resp.get("imageScanStatus", {}).get("status")
         if status == "COMPLETE":
             scan_complete = True
+            time.sleep(5)
             break
         elif status == "FAILED":
             print(f"[!] Scan failed: {resp.get('imageScanStatus', {}).get('description')}")
@@ -53,7 +54,7 @@ findings_resp = ecr.describe_image_scan_findings(
 )
 
 counts = findings_resp.get("imageScanFindings", {}).get("findingSeverityCounts", {}) or {}
-enhanced_findings = findings_resp.get("imageScanFindings", {}).get("enhancedImageScanFindings", [])
+enhanced_findings = findings_resp.get("imageScanFindings", {}).get("enhancedFindings", []) or findings_resp.get("imageScanFindings", {}).get("enhancedImageScanFindings", [])
 
 # If counts not directly populated in basic format, calculate from enhanced findings
 if not counts and enhanced_findings:
