@@ -7,7 +7,7 @@
 | Resource Category | Logical Name | Resource Name / ID | ARN / Details | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | **Identity & Account** | AWS CLI User | `phani-cli` | `arn:aws:iam::435023701114:user/phani-cli` | Active |
-| **Pipeline (P1)** | CodeConnections | `github-connection` | *(pending creation)* | - |
+| **Pipeline (P1)** | CodeConnections | `devsecops-fintech-connection` | `arn:aws:codeconnections:ap-south-1:435023701114:connection/1958f30d-2ec2-4ae0-b5c9-59add21bdb4f` | PENDING Authorization |
 | **Pipeline (P1)** | CodeBuild Phase 1 | `fintech-devsecops-phase1` | `arn:aws:codebuild:ap-south-1:435023701114:project/fintech-devsecops-phase1` | - |
 | **Pipeline (P1)** | CodePipeline | `fintech-devsecops-pipeline` | `arn:aws:codepipeline:ap-south-1:435023701114:fintech-devsecops-pipeline` | - |
 | **Secrets (P1)** | Secrets Manager | `fintech/payment-api` | `arn:aws:secretsmanager:ap-south-1:435023701114:secret:fintech/payment-api` | - |
