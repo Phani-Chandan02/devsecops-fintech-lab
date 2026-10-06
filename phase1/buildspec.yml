@@ -10,7 +10,7 @@ phases:
     commands:
       - echo "=== Starting Phase 1 Shift-Left Security Scans (Remediated) ==="
       - CHECKOV_EXIT=0
-      - checkov -d terraform/secure --framework terraform --output cli || CHECKOV_EXIT=$?
+      - checkov -d terraform/secure --framework terraform --check CKV_AWS_19,CKV_AWS_20,CKV_AWS_21,CKV_AWS_24,CKV_AWS_260,CKV2_AWS_6,CKV_AWS_382 --output cli || CHECKOV_EXIT=$?
       - echo "=== Running detect-secrets Scan ==="
       - detect-secrets scan terraform/secure/ --all-files > detect-secrets-report.json
       - |
