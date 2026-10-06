@@ -1,0 +1,9 @@
+{
+  "RulesSource": {
+    "RulesSourceList": {
+      "Targets": ["example-bad-domain.test"],
+      "TargetTypes": ["TLS_SNI", "HTTP_HOST"],
+      "GeneratedRulesType": "DENYLIST"
+    }
+  }
+}

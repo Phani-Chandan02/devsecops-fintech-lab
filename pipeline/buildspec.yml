@@ -1,0 +1,51 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing DevSecOps tools"
+      - python3 -m pip install --upgrade pip
+      - python3 -m pip install checkov detect-secrets
+  pre_build:
+    commands:
+      - echo "=== CHECKOV: Terraform IaC security scan ==="
+      - CHECKOV_EXIT=0
+      - checkov -d app --framework terraform --output cli || CHECKOV_EXIT=$?
+      - echo "=== SECRET SCAN: detect-secrets ==="
+      - detect-secrets scan app/ --all-files > detect-secrets.json
+      - |
+        python3 - <<'PY'
+        import json, sys
+        with open('detect-secrets.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        findings = data.get('results', {})
+        count = sum(len(v) for v in findings.values())
+        print(f"Potential secrets found: {count}")
+        if count:
+            print("FAIL: secret governance gate detected hardcoded secrets")
+            sys.exit(1)
+        print("PASS: no potential secrets detected")
+        PY
+      - SECRET_EXIT=$?
+      - |
+        if [ "$CHECKOV_EXIT" -ne 0 ] || [ "$SECRET_EXIT" -ne 0 ]; then
+          echo "=========================================="
+          echo " DevSecOps Pre-Deployment Gate: FAILED"
+          if [ "$CHECKOV_EXIT" -ne 0 ]; then echo " [!] Checkov IaC security scan failed"; fi
+          if [ "$SECRET_EXIT" -ne 0 ]; then echo " [!] detect-secrets detected secrets"; fi
+          echo "=========================================="
+          exit 1
+        fi
+        echo "=========================================="
+        echo " DevSecOps Pre-Deployment Gate: PASSED"
+        echo "=========================================="
+  build:
+    commands:
+      - echo "=== Docker build ==="
+      - docker build -t payment-api:${CODEBUILD_RESOLVED_SOURCE_VERSION:-lab} app/
+  post_build:
+    commands:
+      - echo "Security gate PASSED"
+artifacts:
+  files:
+    - detect-secrets.json

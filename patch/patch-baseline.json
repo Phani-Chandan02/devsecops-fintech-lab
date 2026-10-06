@@ -1,0 +1,12 @@
+{
+  "PatchBaselineIdentity": {
+    "Name": "PCI-DSS-Lab-Baseline",
+    "OperatingSystem": "AMAZON_LINUX_2023",
+    "Description": "Lab baseline: approve security updates for PCI-style compliance demonstration"
+  },
+  "ApprovalPolicy": {
+    "Classification": "Security",
+    "Severity": ["Critical", "Important"],
+    "ApproveAfterDays": 0
+  }
+}
