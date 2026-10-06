@@ -1,0 +1,30 @@
+{
+  "PrefixListName": "devsecops-threat-ips",
+  "MaxEntries": 10,
+  "AddressFamily": "IPv4",
+  "Entries": [
+    {
+      "Cidr": "203.0.113.10/32",
+      "Description": "Simulated Malicious C2 IP"
+    },
+    {
+      "Cidr": "198.51.100.25/32",
+      "Description": "Simulated Exfiltration Host"
+    }
+  ],
+  "TagSpecifications": [
+    {
+      "ResourceType": "prefix-list",
+      "Tags": [
+        {
+          "Key": "Project",
+          "Value": "devsecops-fintech-lab"
+        },
+        {
+          "Key": "Environment",
+          "Value": "lab"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing DevSecOps Static Analysis & Secret Governance Tools"
+      - python3 -m pip install --upgrade pip
+      - python3 -m pip install checkov detect-secrets
+  pre_build:
+    commands:
+      - echo "=========================================================="
+      - echo " PHASE 1: SHIFT-LEFT IaC & SECRET SECURITY SCAN"
+      - echo "=========================================================="
+      - echo "--- [1/2] CHECKOV: Terraform Static Security Analysis ---"
+      - CHECKOV_EXIT=0
+      - checkov -d terraform/vulnerable --framework terraform --output cli || CHECKOV_EXIT=$?
+      - echo "--- [2/2] DETECT-SECRETS: Secret Governance Scan ---"
+      - detect-secrets scan terraform/vulnerable/ --all-files > /tmp/detect-secrets.json
+      - |
+        python3 - <<'PY'
+        import json, sys
+        with open('/tmp/detect-secrets.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        findings = data.get('results', {})
+        count = sum(len(v) for v in findings.values())
+        print(f"Total potential hardcoded secrets detected: {count}")
+        if count > 0:
+            print("FAILED: Hardcoded API keys, passwords, or tokens found in commit!")
+            sys.exit(1)
+        print("PASSED: Zero secrets detected in code.")
+        PY
+      - SECRET_EXIT=$?
+      - |
+        if [ "$CHECKOV_EXIT" -ne 0 ] || [ "$SECRET_EXIT" -ne 0 ]; then
+          echo "=========================================================="
+          echo " [GATE STATUS] FAILED: Pre-deployment security policies violated"
+          if [ "$CHECKOV_EXIT" -ne 0 ]; then echo "  -> Checkov policy checks failed (Insecure IaC detected)"; fi
+          if [ "$SECRET_EXIT" -ne 0 ]; then echo "  -> detect-secrets identified hardcoded credentials"; fi
+          echo "=========================================================="
+          exit 1
+        fi
+        echo "=========================================================="
+        echo " [GATE STATUS] PASSED: All pre-deployment security checks verified"
+        echo "=========================================================="
+  build:
+    commands:
+      - echo "Building payment API Docker container"
+      - docker build -t payment-api:${CODEBUILD_RESOLVED_SOURCE_VERSION:-lab} app/
+  post_build:
+    commands:
+      - echo "Phase 1 Security & Build Stage Completed Successfully."
+
+artifacts:
+  files:
+    - /tmp/detect-secrets.json

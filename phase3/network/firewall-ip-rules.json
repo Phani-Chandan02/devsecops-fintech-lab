@@ -1,0 +1,13 @@
+{
+  "RuleVariables": {},
+  "ReferenceSets": {
+    "IPSetReferences": {
+      "BETA": {
+        "ReferenceArn": "REPLACE_WITH_PREFIX_LIST_ARN"
+      }
+    }
+  },
+  "RulesSource": {
+    "RulesString": "drop ip any any -> @BETA any (msg:\"Dynamic Threat IP Drop via Managed Prefix List\"; sid:100001; rev:1;)"
+  }
+}

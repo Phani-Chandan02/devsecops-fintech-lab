@@ -1,0 +1,15 @@
+{
+  "RulesSource": {
+    "RulesSourceList": {
+      "Targets": [
+        "example-bad-domain.test",
+        "malicious-c2-server.example"
+      ],
+      "TargetTypes": [
+        "TLS_SNI",
+        "HTTP_HOST"
+      ],
+      "GeneratedRulesType": "DENYLIST"
+    }
+  }
+}

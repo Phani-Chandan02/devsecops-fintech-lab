@@ -1,0 +1,34 @@
+{
+  "Name": "PCI-DSS-LAB-Baseline",
+  "OperatingSystem": "AMAZON_LINUX_2023",
+  "Description": "Lab Custom Patch Baseline aligned with PCI-DSS v4.0 Requirement 6.3.3",
+  "ApprovalRules": {
+    "PatchRules": [
+      {
+        "PatchFilterGroup": {
+          "PatchFilters": [
+            {
+              "Key": "CLASSIFICATION",
+              "Values": ["Security"]
+            },
+            {
+              "Key": "SEVERITY",
+              "Values": ["Critical", "Important"]
+            }
+          ]
+        },
+        "ApproveAfterDays": 0
+      }
+    ]
+  },
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "devsecops-fintech-lab"
+    },
+    {
+      "Key": "Compliance",
+      "Value": "PCI-DSS-v4.0"
+    }
+  ]
+}

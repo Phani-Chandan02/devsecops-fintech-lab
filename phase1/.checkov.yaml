@@ -1,0 +1,8 @@
+directory:
+  - terraform/vulnerable
+framework:
+  - terraform
+output: cli
+soft-fail: false
+download-external-modules: false
+compact: true

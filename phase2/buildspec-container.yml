@@ -1,0 +1,31 @@
+version: 0.2
+
+env:
+  variables:
+    ECR_REPOSITORY: "payment-api"
+    IMAGE_TAG: "latest"
+
+phases:
+  pre_build:
+    commands:
+      - echo "Logging in to Amazon ECR..."
+      - ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - ECR_URI=${ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+      - aws ecr get-login-password --region "$AWS_DEFAULT_REGION" | docker login --username AWS --password-stdin "$ECR_URI"
+  build:
+    commands:
+      - echo "Building and tagging payment API container..."
+      - docker build -t "$ECR_URI/$ECR_REPOSITORY:$IMAGE_TAG" app/
+      - echo "Pushing container image to ECR for Inspector scanning..."
+      - docker push "$ECR_URI/$ECR_REPOSITORY:$IMAGE_TAG"
+  post_build:
+    commands:
+      - echo "Executing Inspector Automated Deployment Gate..."
+      - python3 phase2/inspector_gate.py
+      - |
+        cat > imagedefinitions.json <<JSON
+        [{"name":"payment-api","imageUri":"$ECR_URI/$ECR_REPOSITORY:$IMAGE_TAG"}]
+        JSON
+artifacts:
+  files:
+    - imagedefinitions.json
