@@ -1,0 +1,93 @@
+{
+  "pipeline": {
+    "name": "phani-devsecops-pipeline",
+    "roleArn": "arn:aws:iam::435023701114:role/phani-codepipeline-service-role",
+    "artifactStore": {
+      "type": "S3",
+      "location": "phani-codepipeline-artifacts-435023701114"
+    },
+    "stages": [
+      {
+        "name": "Source",
+        "actions": [
+          {
+            "name": "GitHub_Source",
+            "actionTypeId": {
+              "category": "Source",
+              "owner": "AWS",
+              "provider": "CodeStarSourceConnection",
+              "version": "1"
+            },
+            "outputArtifacts": [
+              {
+                "name": "SourceArtifact"
+              }
+            ],
+            "configuration": {
+              "ConnectionArn": "arn:aws:codeconnections:ap-south-1:435023701114:connection/1958f30d-2ec2-4ae0-b5c9-59add21bdb4f",
+              "FullRepositoryId": "Phani-Chandan02/devsecops-fintech-lab",
+              "BranchName": "main"
+            },
+            "runOrder": 1
+          }
+        ]
+      },
+      {
+        "name": "IaC_and_Secret_Security_Scan",
+        "actions": [
+          {
+            "name": "Checkov_and_DetectSecrets_Gate",
+            "actionTypeId": {
+              "category": "Build",
+              "owner": "AWS",
+              "provider": "CodeBuild",
+              "version": "1"
+            },
+            "inputArtifacts": [
+              {
+                "name": "SourceArtifact"
+              }
+            ],
+            "outputArtifacts": [
+              {
+                "name": "SecurityBuildArtifact"
+              }
+            ],
+            "configuration": {
+              "ProjectName": "phani-devsecops-phase1"
+            },
+            "runOrder": 1
+          }
+        ]
+      },
+      {
+        "name": "Container_Security_and_Inspector_Gate",
+        "actions": [
+          {
+            "name": "Docker_Build_and_Inspector_Gate",
+            "actionTypeId": {
+              "category": "Build",
+              "owner": "AWS",
+              "provider": "CodeBuild",
+              "version": "1"
+            },
+            "inputArtifacts": [
+              {
+                "name": "SourceArtifact"
+              }
+            ],
+            "outputArtifacts": [
+              {
+                "name": "ContainerArtifact"
+              }
+            ],
+            "configuration": {
+              "ProjectName": "phani-devsecops-phase2"
+            },
+            "runOrder": 1
+          }
+        ]
+      }
+    ]
+  }
+}

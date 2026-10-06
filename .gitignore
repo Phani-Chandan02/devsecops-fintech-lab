@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.zip
+
+# Temporary test artifacts
+test-*.json
+soar-response.json
+resolved-ip-rules.json
+rotation-rules.json
+
+# Terraform local state
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
