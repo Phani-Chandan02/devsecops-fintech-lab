@@ -29,14 +29,18 @@ for attempt in range(max_attempts):
             imageId={"imageTag": image_tag}
         )
         status = resp.get("imageScanStatus", {}).get("status")
-        if status == "COMPLETE":
+        counts = resp.get("imageScanFindings", {}).get("findingSeverityCounts", {}) or {}
+        findings = resp.get("imageScanFindings", {}).get("enhancedFindings", []) or resp.get("imageScanFindings", {}).get("enhancedImageScanFindings", [])
+        
+        # In Inspector v2, status can show COMPLETE before findings are populated.
+        # Wait until findings arrive OR at least 5 attempts (~50s) have passed.
+        if status == "COMPLETE" and (counts or findings or attempt >= 5):
             scan_complete = True
-            time.sleep(5)
             break
         elif status == "FAILED":
             print(f"[!] Scan failed: {resp.get('imageScanStatus', {}).get('description')}")
             sys.exit(1)
-        print(f"    Waiting for scan completion... (status: {status}, attempt {attempt+1}/{max_attempts})")
+        print(f"    Waiting for scan findings... (status: {status}, attempt {attempt+1}/{max_attempts})")
     except ecr.exceptions.ScanNotFoundException:
         print(f"    Scan pending initiation... (attempt {attempt+1}/{max_attempts})")
     except Exception as e:
