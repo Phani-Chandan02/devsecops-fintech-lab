@@ -1,0 +1,48 @@
+{
+    "UpdateToken": "8b1f51e3-2279-4704-8a98-cf4bd60475dd",
+    "FirewallPolicyResponse": {
+        "FirewallPolicyName": "phani-firewall-policy",
+        "FirewallPolicyArn": "arn:aws:network-firewall:ap-south-1:435023701114:firewall-policy/phani-firewall-policy",
+        "FirewallPolicyId": "e661f187-ae73-47ab-9a05-847b588aacd2",
+        "FirewallPolicyStatus": "ACTIVE",
+        "Tags": [
+            {
+                "Key": "Candidate",
+                "Value": "phani"
+            },
+            {
+                "Key": "Project",
+                "Value": "devsecops-fintech-lab"
+            },
+            {
+                "Key": "Owner",
+                "Value": "phani"
+            }
+        ],
+        "ConsumedStatelessRuleCapacity": 0,
+        "ConsumedStatefulRuleCapacity": 200,
+        "ConsumedStatefulDomainCapacity": 0,
+        "NumberOfAssociations": 0,
+        "EncryptionConfiguration": {
+            "KeyId": "AWS_OWNED_KMS_KEY",
+            "Type": "AWS_OWNED_KMS_KEY"
+        },
+        "LastModifiedTime": "2026-10-06T12:50:16.150000+05:30"
+    },
+    "FirewallPolicy": {
+        "StatelessDefaultActions": [
+            "aws:forward_to_sfe"
+        ],
+        "StatelessFragmentDefaultActions": [
+            "aws:forward_to_sfe"
+        ],
+        "StatefulRuleGroupReferences": [
+            {
+                "ResourceArn": "arn:aws:network-firewall:ap-south-1:435023701114:stateful-rulegroup/phani-domain-deny-group"
+            },
+            {
+                "ResourceArn": "arn:aws:network-firewall:ap-south-1:435023701114:stateful-rulegroup/phani-ip-drop-group"
+            }
+        ]
+    }
+}

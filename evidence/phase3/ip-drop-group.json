@@ -1,0 +1,45 @@
+{
+    "UpdateToken": "2b3c0d4a-a3f3-45fb-abd1-c1849cdee6d5",
+    "RuleGroup": {
+        "RuleVariables": {},
+        "ReferenceSets": {
+            "IPSetReferences": {
+                "BETA": {
+                    "ReferenceArn": "arn:aws:ec2:ap-south-1:435023701114:prefix-list/pl-0b2d6049684e69a1a"
+                }
+            }
+        },
+        "RulesSource": {
+            "RulesString": "drop ip any any -> @BETA any (msg:\"Dynamic Threat IP Drop via Managed Prefix List\"; sid:100001; rev:1;)"
+        }
+    },
+    "RuleGroupResponse": {
+        "RuleGroupArn": "arn:aws:network-firewall:ap-south-1:435023701114:stateful-rulegroup/phani-ip-drop-group",
+        "RuleGroupName": "phani-ip-drop-group",
+        "RuleGroupId": "ac62fd6f-e6ca-4077-84b2-e1853dbec6da",
+        "Type": "STATEFUL",
+        "Capacity": 100,
+        "RuleGroupStatus": "ACTIVE",
+        "Tags": [
+            {
+                "Key": "Candidate",
+                "Value": "phani"
+            },
+            {
+                "Key": "Project",
+                "Value": "devsecops-fintech-lab"
+            },
+            {
+                "Key": "Owner",
+                "Value": "phani"
+            }
+        ],
+        "ConsumedCapacity": 1,
+        "NumberOfAssociations": 1,
+        "EncryptionConfiguration": {
+            "KeyId": "AWS_OWNED_KMS_KEY",
+            "Type": "AWS_OWNED_KMS_KEY"
+        },
+        "LastModifiedTime": "2026-10-06T12:50:11.805000+05:30"
+    }
+}

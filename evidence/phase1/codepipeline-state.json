@@ -1,0 +1,84 @@
+{
+    "pipelineName": "phani-devsecops-pipeline",
+    "pipelineVersion": 2,
+    "stageStates": [
+        {
+            "stageName": "Source",
+            "inboundExecutions": [],
+            "inboundTransitionState": {
+                "enabled": true
+            },
+            "actionStates": [
+                {
+                    "actionName": "GitHub_Source",
+                    "currentRevision": {
+                        "revisionId": "630dc655fcb4460d0f727cf2aa780fbbe49eed56"
+                    },
+                    "latestExecution": {
+                        "actionExecutionId": "ef28b58b-5f5c-4f3e-ae2d-70f8f6763897",
+                        "status": "Succeeded",
+                        "summary": "{\"ProviderType\":\"GitHub\",\"CommitMessage\":\"fix(container): remediate container vulnerabilities using hardened python:3.11-alpine base (PCI-DSS v4.0 Req 6.4)\"}",
+                        "lastStatusChange": "2026-10-06T13:17:43.992000+05:30",
+                        "externalExecutionId": "630dc655fcb4460d0f727cf2aa780fbbe49eed56"
+                    },
+                    "entityUrl": "https://ap-south-1.console.aws.amazon.com/codesuite/settings/connections/redirect?connectionArn=arn:aws:codeconnections:ap-south-1:435023701114:connection/1958f30d-2ec2-4ae0-b5c9-59add21bdb4f&referenceType=BRANCH&FullRepositoryId=Phani-Chandan02/devsecops-fintech-lab&Branch=main",
+                    "revisionUrl": "https://ap-south-1.console.aws.amazon.com/codesuite/settings/connections/redirect?connectionArn=arn:aws:codeconnections:ap-south-1:435023701114:connection/1958f30d-2ec2-4ae0-b5c9-59add21bdb4f&referenceType=COMMIT&FullRepositoryId=Phani-Chandan02/devsecops-fintech-lab&Commit=630dc655fcb4460d0f727cf2aa780fbbe49eed56"
+                }
+            ],
+            "latestExecution": {
+                "pipelineExecutionId": "e2288905-a00d-4667-8f69-3f7c0f519433",
+                "status": "Succeeded"
+            }
+        },
+        {
+            "stageName": "IaC_and_Secret_Security_Scan",
+            "inboundExecutions": [],
+            "inboundTransitionState": {
+                "enabled": true
+            },
+            "actionStates": [
+                {
+                    "actionName": "Checkov_and_DetectSecrets_Gate",
+                    "latestExecution": {
+                        "actionExecutionId": "230fd3eb-2080-4bdc-ad8a-1f02f08cd434",
+                        "status": "Succeeded",
+                        "lastStatusChange": "2026-10-06T13:19:17.002000+05:30",
+                        "externalExecutionId": "phani-devsecops-phase1:b39cf615-f065-4533-b4dd-4bbb4fcfd9c9",
+                        "externalExecutionUrl": "https://console.aws.amazon.com/codebuild/home?region=ap-south-1#/builds/phani-devsecops-phase1:b39cf615-f065-4533-b4dd-4bbb4fcfd9c9/view/new"
+                    },
+                    "entityUrl": "https://console.aws.amazon.com/codebuild/home?region=ap-south-1#/projects/phani-devsecops-phase1/view"
+                }
+            ],
+            "latestExecution": {
+                "pipelineExecutionId": "e2288905-a00d-4667-8f69-3f7c0f519433",
+                "status": "Succeeded"
+            }
+        },
+        {
+            "stageName": "Container_Security_and_Inspector_Gate",
+            "inboundExecutions": [],
+            "inboundTransitionState": {
+                "enabled": true
+            },
+            "actionStates": [
+                {
+                    "actionName": "Docker_Build_and_Inspector_Gate",
+                    "latestExecution": {
+                        "actionExecutionId": "10e98cfe-8fe6-4c30-bed4-be19f7b34902",
+                        "status": "Succeeded",
+                        "lastStatusChange": "2026-10-06T13:20:50.114000+05:30",
+                        "externalExecutionId": "phani-devsecops-phase2:7cd11b39-588e-473d-8780-c57025964e14",
+                        "externalExecutionUrl": "https://console.aws.amazon.com/codebuild/home?region=ap-south-1#/builds/phani-devsecops-phase2:7cd11b39-588e-473d-8780-c57025964e14/view/new"
+                    },
+                    "entityUrl": "https://console.aws.amazon.com/codebuild/home?region=ap-south-1#/projects/phani-devsecops-phase2/view"
+                }
+            ],
+            "latestExecution": {
+                "pipelineExecutionId": "e2288905-a00d-4667-8f69-3f7c0f519433",
+                "status": "Succeeded"
+            }
+        }
+    ],
+    "created": "2026-10-06T12:46:22.211000+05:30",
+    "updated": "2026-10-06T13:00:57.796000+05:30"
+}

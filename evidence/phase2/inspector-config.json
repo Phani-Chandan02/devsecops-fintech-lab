@@ -1,0 +1,17 @@
+{
+    "registryId": "435023701114",
+    "scanningConfiguration": {
+        "scanType": "ENHANCED",
+        "rules": [
+            {
+                "scanFrequency": "SCAN_ON_PUSH",
+                "repositoryFilters": [
+                    {
+                        "filter": "payment-api",
+                        "filterType": "WILDCARD"
+                    }
+                ]
+            }
+        ]
+    }
+}

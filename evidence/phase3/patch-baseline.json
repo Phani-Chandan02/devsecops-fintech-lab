@@ -1,0 +1,11 @@
+{
+    "BaselineIdentities": [
+        {
+            "BaselineId": "pb-010d4f6382cb8b315",
+            "BaselineName": "phani-PCI-DSS-LAB-Baseline",
+            "OperatingSystem": "AMAZON_LINUX_2023",
+            "BaselineDescription": "Candidate: Phani - Lab baseline for PCI-DSS v4.0 patch compliance auditing",
+            "DefaultBaseline": false
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+{
+    "Configuration": {
+        "FunctionName": "phani-secret-rotation",
+        "FunctionArn": "arn:aws:lambda:ap-south-1:435023701114:function:phani-secret-rotation",
+        "Runtime": "python3.12",
+        "Role": "arn:aws:iam::435023701114:role/phani-secret-rotation-role",
+        "Handler": "rotation_lambda.handler",
+        "CodeSize": 1282,
+        "Description": "",
+        "Timeout": 30,
+        "MemorySize": 128,
+        "LastModified": "2026-10-06T07:15:04.140+0000",
+        "CodeSha256": "WT1xtVgKaO+mYgJwLjViva/VTQCxG4kSIVWYMIbUM8E=",
+        "Version": "$LATEST",
+        "TracingConfig": {
+            "Mode": "PassThrough"
+        },
+        "RevisionId": "7784a929-fd2b-4ebc-8410-de79c773c34f",
+        "State": "Active",
+        "LastUpdateStatus": "Successful",
+        "PackageType": "Zip",
+        "Architectures": [
+            "x86_64"
+        ],
+        "EphemeralStorage": {
+            "Size": 512
+        },
+        "SnapStart": {
+            "ApplyOn": "None",
+            "OptimizationStatus": "Off"
+        },
+        "RuntimeVersionConfig": {
+            "RuntimeVersionArn": "arn:aws:lambda:ap-south-1::runtime:36aeb19f3326e129d9f096dea0a3c6a9ca8dce2610e62d2b2060747602d863ae"
+        },
+        "LoggingConfig": {
+            "LogFormat": "Text",
+            "LogGroup": "/aws/lambda/phani-secret-rotation"
+        }
+    },
+    "Code": {
+        "RepositoryType": "S3",
+        "Location": "https://awslambda-ap-s-1-tasks.s3.ap-south-1.amazonaws.com/snapshots/435023701114/phani-secret-rotation-faa7d346-d50d-466e-8cf2-29aeba36671c?versionId=9qJXP00MeZRN7gfd2gAjUucNXC3lwhH.&X-Amz-Security-Token=IQoJb3JpZ2luX2VjECIaCmFwLXNvdXRoLTEiRzBFAiBiUAFhspWffEeneC05AtD8AmCxNR6e7K9XRgaMqMkcOAIhAPCeCPtXf4lyAsj7Hdr%2F6KRriyYuVxw6rLgiXVrAsL5PKpQCCOr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQBBoMNTQ1MjU1MjAxMzA3IgwqTyvwxb5FJIr2%2BoIq6AGzRYnGLHNbO5srDlqslBxDsGx%2BWH5UxOOpeyj91wYlIxZ9MiUc4%2BxtIvkqWq7CkYeOItEo5JjKAz9cKfjoHQ9rYvWu3gzA3D4oghYkuKmBYRe56LfWbD1ROdXi1kzAojRjPLVpDxtqksfPdYFJEhgLoX0XLO2f1H3fa6wkjhmUnZ%2FogPk9agbvxj%2BF6smyrUJtL3l6zY8PAUhEwD03yDy0wBNHn8zuUy67EydLYS4XCqOt5dx6ocScLBAKlzeFOH5Jo4hOcDluHHut%2B15FFpP6UOpKF2RthXk4u9GSQQWuJkH095Si%2BVNlMI6fkdYGOo0BHj4MEVCBbEmT%2B%2BbzBjL8tqETXgZ%2Fuyv3GBxctjVukwsHwx5yYrrX05N2zR0551ttME2PTSw0dkITjH7%2BCte2OxQUqLpT0N%2BvGi%2FD5SgYVQvS2yzyPsWrYGhC5Vbr5X3q1xqTARoKNQjZLJCpyVdCiYvt4vJ0DcALAx%2FUI9eUW%2F%2FwwmFE4olomdXm48U1&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261006T075331Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Credential=ASIAX5456DINRVRQUTBN%2F20261006%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=931498eb59c0b352d8f2e93c2dc267cefd6389ee0083a6f30eb5ffe8898e87be"
+    },
+    "Tags": {
+        "Candidate": "phani",
+        "Project": "devsecops-fintech-lab",
+        "Owner": "phani"
+    }
+}

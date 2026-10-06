@@ -1,0 +1,56 @@
+{
+    "Configuration": {
+        "FunctionName": "phani-runtime-soar",
+        "FunctionArn": "arn:aws:lambda:ap-south-1:435023701114:function:phani-runtime-soar",
+        "Runtime": "python3.12",
+        "Role": "arn:aws:iam::435023701114:role/phani-soar-role",
+        "Handler": "lambda_function.handler",
+        "CodeSize": 1907,
+        "Description": "",
+        "Timeout": 300,
+        "MemorySize": 128,
+        "LastModified": "2026-10-06T07:22:40.501+0000",
+        "CodeSha256": "6j6E3+KGj0GK7UwspwV+aZBma0qi8Dq0HxP0wkm2Bwg=",
+        "Version": "$LATEST",
+        "Environment": {
+            "Variables": {
+                "TARGET_INSTANCE_ID": "i-01ee2623ea4ae8598",
+                "FORENSIC_BUCKET": "phani-fintech-forensics-435023701114",
+                "QUARANTINE_SG_ID": "sg-093142cfb2b569af7"
+            }
+        },
+        "TracingConfig": {
+            "Mode": "PassThrough"
+        },
+        "RevisionId": "e5728b4e-c4f2-42e8-92d3-a7b49edd0d8e",
+        "State": "Active",
+        "LastUpdateStatus": "Successful",
+        "PackageType": "Zip",
+        "Architectures": [
+            "x86_64"
+        ],
+        "EphemeralStorage": {
+            "Size": 512
+        },
+        "SnapStart": {
+            "ApplyOn": "None",
+            "OptimizationStatus": "Off"
+        },
+        "RuntimeVersionConfig": {
+            "RuntimeVersionArn": "arn:aws:lambda:ap-south-1::runtime:36aeb19f3326e129d9f096dea0a3c6a9ca8dce2610e62d2b2060747602d863ae"
+        },
+        "LoggingConfig": {
+            "LogFormat": "Text",
+            "LogGroup": "/aws/lambda/phani-runtime-soar"
+        }
+    },
+    "Code": {
+        "RepositoryType": "S3",
+        "Location": "https://awslambda-ap-s-1-tasks.s3.ap-south-1.amazonaws.com/snapshots/435023701114/phani-runtime-soar-a63e4cc4-bae8-42b0-a932-adaf75e98fb5?versionId=xtFU8e3unJqI32.r.bqAOUKqs0K_R8wf&X-Amz-Security-Token=IQoJb3JpZ2luX2VjECMaCmFwLXNvdXRoLTEiRzBFAiAmWbuijijZ34DoSWO6tdJDKBIov6SSwEgyc3l%2FcU3ZrQIhAMiszaIyXl6I6ihHjtpop310UWzL%2FsmTfCGv%2Fu0scybSKpQCCOz%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQBBoMNTQ1MjU1MjAxMzA3IgzD4S4JerbR%2F5jSeAoq6AE7RGU6mnhbn4SBGvO173u8uIDph%2FttE93A1p%2Fbo1MDMZWh6ckrJnT24dezNtTPlfxljztgbGp4GloZcdanZLqs0TX96XNd65pYcjDCzAC6VejksneecpfxU0hWV4tP%2Fo43NzZAeOvDgAmOkt76x3PwF15xaF8%2B1qwIUVHFHTrrZcQ3uBAUNuWpy2xpw0QAp5SGdz42R6u%2FQkcy779rVjfJdpUutzqT%2BtP8HEUFiXk1JKBLLWg1qoLsZwUpew6mUvfh1Fafx3hlKiWTQ3UN5J0d6l4poaKme%2FTWjnB9MdTxWSNHP76vRPkBMN7VkdYGOo0BJMAiu01P%2B4%2BV2K0y5MKZREhPTPv%2FfWr2ifoNZpwRxEfzXbE%2FTPK66hIPSM4Wvjcj00XYHx6WqTOc%2FieFGhg6Y5dip8xRyAeXhhkDuGf1iM1E53HbnOkZmS70sdQPjvMOM4ZJFAY4lfZWmHfa1ovsYtY6hkK67dPDb7CLD3nhfRQp8UArcwJ7W8cz6zux&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20261006T075352Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Credential=ASIAX5456DINWFIEZELF%2F20261006%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=bf52b820bd267207f7d5bb696469042e58f76c0cf0cb674b5d6798a6115b8e2d"
+    },
+    "Tags": {
+        "Candidate": "phani",
+        "Project": "devsecops-fintech-lab",
+        "Owner": "phani"
+    }
+}

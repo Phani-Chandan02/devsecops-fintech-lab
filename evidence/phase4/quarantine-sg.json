@@ -1,0 +1,42 @@
+{
+    "SecurityGroups": [
+        {
+            "GroupId": "sg-093142cfb2b569af7",
+            "IpPermissionsEgress": [],
+            "Tags": [
+                {
+                    "Key": "Owner",
+                    "Value": "phani"
+                },
+                {
+                    "Key": "Candidate",
+                    "Value": "phani"
+                },
+                {
+                    "Key": "Project",
+                    "Value": "devsecops-fintech-lab"
+                }
+            ],
+            "VpcId": "vpc-0e2777e387ee166e6",
+            "SecurityGroupArn": "arn:aws:ec2:ap-south-1:435023701114:security-group/sg-093142cfb2b569af7",
+            "OwnerId": "435023701114",
+            "GroupName": "phani-quarantine-sg",
+            "Description": "Quarantine Security Group for candidate Phani - Blocks general egress",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 22,
+                    "ToPort": 22,
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "CidrIp": "10.0.0.0/16"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ]
+        }
+    ]
+}

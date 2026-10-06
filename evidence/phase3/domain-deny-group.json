@@ -1,0 +1,47 @@
+{
+    "UpdateToken": "edcc37e2-efdb-4ba0-ad20-01f9167dc6bf",
+    "RuleGroup": {
+        "RulesSource": {
+            "RulesSourceList": {
+                "Targets": [
+                    "example-bad-domain.test",
+                    "malicious-c2-server.example"
+                ],
+                "TargetTypes": [
+                    "TLS_SNI",
+                    "HTTP_HOST"
+                ],
+                "GeneratedRulesType": "DENYLIST"
+            }
+        }
+    },
+    "RuleGroupResponse": {
+        "RuleGroupArn": "arn:aws:network-firewall:ap-south-1:435023701114:stateful-rulegroup/phani-domain-deny-group",
+        "RuleGroupName": "phani-domain-deny-group",
+        "RuleGroupId": "71c577e4-b328-4028-8e6b-a5a66c1716da",
+        "Type": "STATEFUL",
+        "Capacity": 100,
+        "RuleGroupStatus": "ACTIVE",
+        "Tags": [
+            {
+                "Key": "Candidate",
+                "Value": "phani"
+            },
+            {
+                "Key": "Project",
+                "Value": "devsecops-fintech-lab"
+            },
+            {
+                "Key": "Owner",
+                "Value": "phani"
+            }
+        ],
+        "ConsumedCapacity": 5,
+        "NumberOfAssociations": 1,
+        "EncryptionConfiguration": {
+            "KeyId": "AWS_OWNED_KMS_KEY",
+            "Type": "AWS_OWNED_KMS_KEY"
+        },
+        "LastModifiedTime": "2026-10-06T12:50:08.961000+05:30"
+    }
+}

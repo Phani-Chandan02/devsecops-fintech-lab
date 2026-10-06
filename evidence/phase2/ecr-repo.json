@@ -1,0 +1,18 @@
+{
+    "repositories": [
+        {
+            "repositoryArn": "arn:aws:ecr:ap-south-1:435023701114:repository/payment-api",
+            "registryId": "435023701114",
+            "repositoryName": "payment-api",
+            "repositoryUri": "435023701114.dkr.ecr.ap-south-1.amazonaws.com/payment-api",
+            "createdAt": "2026-10-06T12:48:53.985000+05:30",
+            "imageTagMutability": "MUTABLE",
+            "imageScanningConfiguration": {
+                "scanOnPush": true
+            },
+            "encryptionConfiguration": {
+                "encryptionType": "AES256"
+            }
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+{
+    "taskArns": [
+        "arn:aws:ecs:ap-south-1:435023701114:task/phani-devsecops-cluster/005371e7bd7a474dbd5c3323bb94e9f3"
+    ]
+}

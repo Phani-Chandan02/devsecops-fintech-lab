@@ -1,0 +1,19 @@
+{
+    "clusters": [
+        {
+            "clusterArn": "arn:aws:ecs:ap-south-1:435023701114:cluster/phani-devsecops-cluster",
+            "clusterName": "phani-devsecops-cluster",
+            "status": "ACTIVE",
+            "registeredContainerInstancesCount": 0,
+            "runningTasksCount": 1,
+            "pendingTasksCount": 0,
+            "activeServicesCount": 1,
+            "statistics": [],
+            "tags": [],
+            "settings": [],
+            "capacityProviders": [],
+            "defaultCapacityProviderStrategy": []
+        }
+    ],
+    "failures": []
+}
