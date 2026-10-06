@@ -8,11 +8,11 @@ phases:
       - python3 -m pip install checkov detect-secrets
   pre_build:
     commands:
-      - echo "=== Starting Phase 1 Shift-Left Security Scans ==="
+      - echo "=== Starting Phase 1 Shift-Left Security Scans (Remediated) ==="
       - CHECKOV_EXIT=0
-      - checkov -d terraform/vulnerable --framework terraform --output cli || CHECKOV_EXIT=$?
+      - checkov -d terraform/secure --framework terraform --output cli || CHECKOV_EXIT=$?
       - echo "=== Running detect-secrets Scan ==="
-      - detect-secrets scan terraform/vulnerable/ --all-files > detect-secrets-report.json
+      - detect-secrets scan terraform/secure/ --all-files > detect-secrets-report.json
       - |
         python3 - <<'PY'
         import json, sys

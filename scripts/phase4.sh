@@ -3,14 +3,15 @@ set -euo pipefail
 
 REGION="${AWS_DEFAULT_REGION:-ap-south-1}"
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-FORENSIC_BUCKET="fintech-devsecops-forensics-${ACCOUNT_ID}"
-SOAR_ROLE="fintech-soar-role"
+FORENSIC_BUCKET="phani-fintech-forensics-${ACCOUNT_ID}"
+SOAR_ROLE="phani-soar-role"
+TARGET_INSTANCE_ID="i-01ee2623ea4ae8598"
 
 echo "=========================================================="
-echo " EXECUTING PHASE 4: RUNTIME THREAT REMEDIATION (SOAR)"
+echo " EXECUTING PHASE 4: RUNTIME THREAT REMEDIATION (SOAR - PHANI)"
 echo "=========================================================="
 
-echo "[1/5] Creating Encrypted S3 Forensic Bucket..."
+echo "[1/5] Creating Encrypted S3 Forensic Bucket: $FORENSIC_BUCKET..."
 if ! aws s3api head-bucket --bucket "$FORENSIC_BUCKET" 2>/dev/null; then
   aws s3 mb "s3://$FORENSIC_BUCKET" --region "$REGION"
   aws s3api put-bucket-encryption \
@@ -26,20 +27,21 @@ else
   echo "    Forensic bucket $FORENSIC_BUCKET already exists."
 fi
 
-echo "[2/5] Creating Quarantine Security Group..."
+echo "[2/5] Creating Quarantine Security Group: phani-quarantine-sg..."
 VPC_ID=$(aws ec2 describe-vpcs --filters "Name=isDefault,Values=true" --query "Vpcs[0].VpcId" --output text --region "$REGION")
 
 QUARANTINE_SG_ID=$(aws ec2 describe-security-groups \
-  --filters "Name=group-name,Values=devsecops-quarantine-sg" "Name=vpc-id,Values=$VPC_ID" \
+  --filters "Name=group-name,Values=phani-quarantine-sg" "Name=vpc-id,Values=$VPC_ID" \
   --query "SecurityGroups[0].GroupId" \
   --output text \
   --region "$REGION" 2>/dev/null || echo "None")
 
 if [ "$QUARANTINE_SG_ID" == "None" ] || [ -z "$QUARANTINE_SG_ID" ]; then
   QUARANTINE_SG_ID=$(aws ec2 create-security-group \
-    --group-name "devsecops-quarantine-sg" \
-    --description "Quarantine Security Group - Blocks general traffic except management" \
+    --group-name "phani-quarantine-sg" \
+    --description "Quarantine Security Group for candidate Phani - Blocks general egress" \
     --vpc-id "$VPC_ID" \
+    --tag-specifications 'ResourceType=security-group,Tags=[{Key=Owner,Value=phani},{Key=Candidate,Value=phani},{Key=Project,Value=devsecops-fintech-lab}]' \
     --query 'GroupId' \
     --output text \
     --region "$REGION")
@@ -48,7 +50,7 @@ if [ "$QUARANTINE_SG_ID" == "None" ] || [ -z "$QUARANTINE_SG_ID" ]; then
   aws ec2 authorize-security-group-ingress \
     --group-id "$QUARANTINE_SG_ID" \
     --protocol tcp --port 22 --cidr 10.0.0.0/16 \
-    --region "$REGION"
+    --region "$REGION" || true
   
   # Remove general outbound
   DEFAULT_EGRESS=$(aws ec2 describe-security-groups --group-ids "$QUARANTINE_SG_ID" --query "SecurityGroups[0].IpPermissionsEgress" --region "$REGION")
@@ -90,7 +92,7 @@ if ! aws lambda get-function --function-name phani-runtime-soar --region "$REGIO
     --role "arn:aws:iam::${ACCOUNT_ID}:role/${SOAR_ROLE}" \
     --zip-file fileb://phase4/soar/soar_lambda.zip \
     --timeout 300 \
-    --environment "Variables={FORENSIC_BUCKET=$FORENSIC_BUCKET,QUARANTINE_SG_ID=$QUARANTINE_SG_ID}" \
+    --environment "Variables={TARGET_INSTANCE_ID=$TARGET_INSTANCE_ID,FORENSIC_BUCKET=$FORENSIC_BUCKET,QUARANTINE_SG_ID=$QUARANTINE_SG_ID}" \
     --tags Owner=phani,Candidate=phani,Project=devsecops-fintech-lab \
     --region "$REGION"
   echo "    Lambda phani-runtime-soar created."
@@ -102,7 +104,7 @@ else
   aws lambda update-function-configuration \
     --function-name phani-runtime-soar \
     --timeout 300 \
-    --environment "Variables={FORENSIC_BUCKET=$FORENSIC_BUCKET,QUARANTINE_SG_ID=$QUARANTINE_SG_ID}" \
+    --environment "Variables={TARGET_INSTANCE_ID=$TARGET_INSTANCE_ID,FORENSIC_BUCKET=$FORENSIC_BUCKET,QUARANTINE_SG_ID=$QUARANTINE_SG_ID}" \
     --region "$REGION" >/dev/null
   echo "    Lambda phani-runtime-soar updated."
 fi
